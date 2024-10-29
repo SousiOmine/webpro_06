@@ -29,18 +29,67 @@ app.get("/luck", (req, res) => {
 
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
-  let win = Number( req.query.win );
-  let total = Number( req.query.total );
-  console.log( {hand, win, total});
+  let win = Number(req.query.win);
+  if (req.query.win == undefined) win = 0;
+  let total = Number(req.query.total);
+  if (req.query.total == undefined) total = -1;
+  console.log({ hand, win, total });
   const num = Math.floor( Math.random() * 3 + 1 );
   let cpu = '';
   if( num==1 ) cpu = 'グー';
   else if( num==2 ) cpu = 'チョキ';
   else cpu = 'パー';
+
+  let judgement = '';
+  switch (cpu) {
+    case 'グー':
+      if (hand == 'グー')
+        judgement = 'あいこ';
+      else if (hand == 'チョキ')
+      {
+        judgement == "負け";
+      }
+      else if (hand == 'パー')
+      {
+        judgement == "勝ち";
+        win++;
+      }
+      break;
+    
+    case 'チョキ':
+      if (hand == 'グー')
+      {
+        judgement = '勝ち';
+        win++;
+      }
+      else if (hand == 'チョキ')
+      {
+        judgement == "あいこ";
+      }
+      else if (hand == 'パー')
+      {
+        judgement == "負け";
+      }
+      break;
+    
+      case 'パー':
+        if (hand == 'グー')
+        {
+          judgement = '負け';
+        }
+        else if (hand == 'チョキ')
+        {
+          judgement == "勝ち";
+          win++;
+        }
+        else if (hand == 'パー')
+        {
+          judgement == "あいこ";
+        }
+        break;
+  }
   // ここに勝敗の判定を入れる
   // 今はダミーで人間の勝ちにしておく
-  let judgement = '勝ち';
-  win += 1;
   total += 1;
   const display = {
     your: hand,
