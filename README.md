@@ -1,62 +1,30 @@
 # webpro_06
-2024/10/29
 ## 概要
-Webプログラミングでやったやつ
+情報工学科の2S,Webプログラミングの講義の課題として作成したアプリケーションです。  
+Webサーバーの機能を持っており、
+起動してアクセスすることで複数の簡易的なWebアプリケーションを
+使用することができます。  
 
-ファイル名 | 説明
--|-
-app5.js|プログラム本体
-janken.html|じゃんけんを表示
+## 機能一覧
+- CPUとユーザーでじゃんけんを行う
+- ユーザーの運勢を乱数で占う
+- 挨拶を返す
+- Appleのロゴを表示する
 
 ## 使用方法
+1. このリポジトリをクローンして移動する
+1. ```npm install```で依存関係をインストールする
 1. ```node app5.js```で起動する
-1. Webブラウザでlocalhost:8080/public/janken.htmlにアクセスする
-1. 自分の手を入力する
+1. 自端末内でサーバーが起動するので、各機能ごとにURLでアクセスする
+
+## 各機能ごとの詳細
+#### じゃんけん
+
+#### 運勢占い
+
+#### 挨拶を返す
+
+#### Appleのロゴを表示
 
 ## 今後の更新予定
 ある
-
-## example
-
-```javascript
-console.log("Hello");
-```
-
-```mermaid
-flowchart TD;
-開始 --> 終了;
-```
-
-```mermaid
-flowchart TD;
-start["開始"];
-end1["終了"]
-if{"条件に合うか"}
-win["勝ち"]
-loose["負け"]
-
-start --> if
-if --> |yes|win
-win --> end1
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-if --> |no|loose
-
-loose --> |www|end1
-
-
-```
