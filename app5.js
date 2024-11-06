@@ -31,7 +31,10 @@ app.get("/chatcit", (req, res) => {
   let user_message = req.query.usr_message;
   let talk = req.query.before_talk;
 
-  if (user_message == undefined && talk == undefined) user_message = "あなたのメッセージで会話を開始";
+  if (user_message == undefined && talk == undefined) {
+    res.render("chatcit", { talk: " " });
+    return;
+  }
   if (talk == undefined) talk = "";
 
   talk += "ユーザー< ";
