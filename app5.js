@@ -27,6 +27,22 @@ app.get("/luck", (req, res) => {
   res.render( 'luck', {number:num, luck:luck} );
 });
 
+app.get("/chatcit", (req, res) => {
+  let user_message = req.query.usr_message;
+  let talk = req.query.before_talk;
+
+  if (user_message == undefined && talk == undefined) user_message = "あなたのメッセージで会話を開始";
+  if (talk == undefined) talk = "";
+
+  talk += "ユーザー< ";
+  talk += user_message + "<br>";
+
+  const res_talk = {
+    talk: talk
+  };
+  res.render('chatcit', res_talk);
+});
+
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
   let win = Number(req.query.win);
