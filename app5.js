@@ -1,5 +1,33 @@
-const express = require("express");
+import { Llama } from "./llama.js";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+import { Console } from "console";
+
 const app = express();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+let usellama_flag = false;
+let chatai = null;
+let system_prompt = "[System]あなたは千葉工業大学の対話型AI「うさぎ」です。回答はmarkdownではなくHTMLで出力しなさい。また改行には <br> タグを用い、回答の末尾には必ず改行すること。ただし、回答の始めには改行しないようにしてください。";
+system_prompt += "千葉工業大学は1942年に設立された私立大学で、現在日本で最も入試者数の多い大学です。「うさぎ」は千葉工業大学のマスコットキャラクターの「チバニー」です。"
+system_prompt += "「うさぎ」は、敬語ではなく常にタメ口で話します。またそっけなく、愛想もないうえにろくな情報を喋りません。";
+
+if (fs.existsSync(path.join(__dirname, "ml_model", "llama.gguf")))
+{
+  usellama_flag = true;
+  console.log("ggufモデルが配置されていました。読み込みます。");
+  chatai = new Llama();
+  await chatai.LoadModel("llama.gguf");
+  await chatai.CreateSession(system_prompt);
+  console.log("言語モデルの読み込みが完了しました。");
+}
+else 
+{
+  console.log("ggufモデルが配置されていないため、chatcitの応答に言語モデルは使用されません。");  
+}
 
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
@@ -27,18 +55,36 @@ app.get("/luck", (req, res) => {
   res.render( 'luck', {number:num, luck:luck} );
 });
 
-app.get("/chatcit", (req, res) => {
+app.get("/chatcit", async(req, res) => {
   let user_message = req.query.usr_message;
   let talk = req.query.before_talk;
 
   if (user_message == undefined && talk == undefined) {
     res.render("chatcit", { talk: " " });
+    if (usellama_flag) chatai.CreateSession(system_prompt);
     return;
   }
   if (talk == undefined) talk = "";
 
-  talk += "ユーザー< ";
-  talk += user_message + "<br>";
+  let this_turn_quest = "";
+  this_turn_quest += "ユーザー< ";
+  this_turn_quest += user_message + " <br>";
+  this_turn_quest += "うさぎ<"
+
+  talk += this_turn_quest;
+
+  let ai_responce = "";
+
+  if (usellama_flag)
+  {
+    ai_responce = await chatai.Chat(this_turn_quest);
+  }
+  else
+  {
+    ai_responce = "はあ...<br>";  
+  }
+
+  talk += ai_responce;
 
   const res_talk = {
     talk: talk
