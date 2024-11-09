@@ -123,11 +123,11 @@ app.get("/janken", (req, res) => {
         judgement = 'あいこ';
       else if (hand == 'チョキ')
       {
-        judgement == "負け";
+        judgement = "負け";
       }
       else if (hand == 'パー')
       {
-        judgement == "勝ち";
+        judgement = "勝ち";
         win++;
       }
       break;
@@ -140,11 +140,11 @@ app.get("/janken", (req, res) => {
       }
       else if (hand == 'チョキ')
       {
-        judgement == "あいこ";
+        judgement = "あいこ";
       }
       else if (hand == 'パー')
       {
-        judgement == "負け";
+        judgement = "負け";
       }
       break;
     
@@ -155,12 +155,12 @@ app.get("/janken", (req, res) => {
         }
         else if (hand == 'チョキ')
         {
-          judgement == "勝ち";
+          judgement = "勝ち";
           win++;
         }
         else if (hand == 'パー')
         {
-          judgement == "あいこ";
+          judgement = "あいこ";
         }
         break;
   }
