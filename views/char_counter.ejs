@@ -1,0 +1,17 @@
+<!Doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>文字数カウント</title>
+</head>
+<body>
+  <h2>文字数を数えたいテキストを入力</h2>
+  
+  <form action="/char_counter">
+    <input type="text" name="usr_text" required>
+    <input type="submit" value="送信" >
+  </form>
+
+  <p> <%- count%> 文字</p>
+</body>
+</html>

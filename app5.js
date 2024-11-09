@@ -92,6 +92,17 @@ app.get("/chatcit", async(req, res) => {
   res.render('chatcit', res_talk);
 });
 
+app.get("/char_counter", (req, res) => {
+  let usr_text = req.query.usr_text;
+
+  if (usr_text == undefined) usr_text = "";
+
+  const segmenter = new Intl.Segmenter("ja", { granularity: "grapheme" });
+  const count = [...segmenter.segment(usr_text)].length;
+
+  res.render("char_counter", {count: count})
+});
+
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
   let win = Number(req.query.win);
