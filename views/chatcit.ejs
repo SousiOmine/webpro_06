@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <title>ChatCIT</title>
+
+    <link rel="stylesheet" href="/public/css/style_chatcit.css">
 </head>
+
 <body>
     <h1>ChatCIT</h1>
     千葉工業大学のうさぎが答えるよ！
     <a href="http://localhost:8080/chatcit">会話履歴を消去</a>
-    <p> <%- talk%> </p>
-    <form action="/chatcit">
-        <input type="text" name="usr_message" required>
-        <input type="hidden" name="before_talk" value="<%= talk%>">
-        <input type="submit" value="送信" >
-    </form>
+    <div class="talk_zone">
+        <div class="chat_zone">
+            <p> <%- talk%> </p>
+        </div>
+        
+        <form class="input" action="/chatcit">
+            <input type="text" name="usr_message" required>
+            <input type="hidden" name="before_talk" value="<%= talk%>">
+            <input type="submit" value="送信">
+        </form>
+    </div>
+
 </body>
+
 </html>

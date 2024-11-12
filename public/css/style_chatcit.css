@@ -1,0 +1,36 @@
+html {
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    height: 80%;
+}
+
+.talk_zone {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.chat_zone {
+    height: 100%;
+    overflow: auto;
+}
+
+.input {
+    width: 100%;
+    height: 50px;
+
+    input[type="text"] {
+        height: 40px;
+        width: 70%;
+    }
+
+    input[type="submit"] {
+        height: 40px;
+        width: 20%;
+        margin: 0 auto;
+    }
+}
