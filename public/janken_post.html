@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script src="jyanken_post.js" defer> </script>
+    <title>じゃんけん</title>
+</head>
+<body>
+    <label id="cpu_hand">CPUはあなたの手を待っています</label>
+    <form action="/janken">
+        
+        <input type="text" name="hand" required>
+        <label for="hand">何を出す？</label>
+        <button type="button" id="submit">じゃんけん　ポン</button>
+        <input type="hidden" name="win" value="0">
+        <input type="hidden" name="total" value="0">
+    </form>
+    
+</body>
+</html>
