@@ -72,6 +72,37 @@ http://localhost:8080/chatcit
 また「会話履歴を消去」をクリックし、会話をリセットすることができます。
 
 
+```mermaid
+    flowchart TD;
+
+    Start(起動)
+    IsExistLLMWeight{もし言語モデルが配置されていれば}
+    LoadLLM(言語モデルを読み込み)
+    Wait(待ち受け)
+    Show(ページ表示)
+    GetContext{リクエストから過去の会話履歴と質問を取得}
+    IsLoadedLLM{言語モデルが読み込まれていれば}
+    kariResponce(はあ...という回答を用意)
+    GenerateResponce(言語モデルにより回答を生成)
+    InputQuest(ユーザーが質問を入力)
+
+
+    Start -->IsExistLLMWeight
+    IsExistLLMWeight -->|配置されている|LoadLLM
+    IsExistLLMWeight -->|配置されていない|Wait
+    LoadLLM --> Wait
+    Wait -->|ユーザーがchatcitにアクセス|GetContext
+    GetContext -->|会話履歴が存在する場合| IsLoadedLLM
+    GetContext -->|会話履歴が存在しない場合| Show
+    IsLoadedLLM -->|読み込まれている|GenerateResponce
+    IsLoadedLLM -->|読み込まれていない|kariResponce
+    GenerateResponce -->Show
+    kariResponce -->Show
+    Show -->Wait
+    Show -->InputQuest
+    InputQuest -->|会話履歴をリクエストに載せてchatcitにアクセス|GetContext
+```
+
 #### 文字数カウント
 サーバーを起動した状態で、
 http://localhost:8080/char_counter
@@ -82,6 +113,25 @@ http://localhost:8080/char_counter
 入力欄に文字列を入力し「送信」ボタンを押すと、
 入力した文字列の文字数を表示します。
 
+```mermaid
+    flowchart TD;
+
+    Start(起動)
+    Show(表示)
+    Wait(待ち受け)
+    IsHavingInput{リクエストにテキストが含まれているか}
+    Count(文字数をカウント)
+    UserInput(文字数を数えたいテキストを入力)
+
+    Start --> Wait
+    Wait -->|ユーザーがchar_counterにアクセス|IsHavingInput
+    IsHavingInput -->|テキストが含まれている|Count
+    Count -->Show
+    IsHavingInput -->|テキストが含まれていない|Show
+    Show -->UserInput
+    UserInput -->|テキストをリクエストに載せてchar_counterにアクセス|IsHavingInput
+
+```
 
 #### じゃんけん
 サーバーを起動した状態で、
